@@ -1,70 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { CartProvider } from './contexts/CartContext';
+import React, { useState } from 'react';
 import { GroupOrderProvider } from './contexts/GroupOrderContext';
-import Cart from './components/Cart';
-import MenuItem from './components/MenuItem';
-import GroupOrder from './components/GroupOrder/GroupOrder';
+import Header from './components/Header/Header';
+import Menu from './components/Menu/Menu';
+import Cart from './components/Cart/Cart';
+import CreateOrderModal from './components/GroupOrder/CreateOrderModal';
+import JoinOrderModal from './components/GroupOrder/JoinOrderModal';
+import Receipt from './components/GroupOrder/Receipt';
 import './App.css';
 
-function App() {
-  const [menuItems, setMenuItems] = useState(null);
-  const [error, setError] = useState(null);
+// Menu data
+const menuData = {
+  "Fried Rice & Noodles": [
+    { id: 1, name: "House Special Fried Rice", price: 12.95 },
+    { id: 2, name: "Shrimp Fried Rice", price: 12.95 },
+    { id: 3, name: "Chicken Fried Rice", price: 11.95 },
+    { id: 4, name: "Beef Fried Rice", price: 11.95 },
+    { id: 5, name: "Vegetable Fried Rice", price: 10.95 },
+    { id: 6, name: "House Special Lo Mein", price: 12.95 },
+    { id: 7, name: "Shrimp Lo Mein", price: 12.95 },
+    { id: 8, name: "Chicken Lo Mein", price: 11.95 },
+    { id: 9, name: "Beef Lo Mein", price: 11.95 },
+    { id: 10, name: "Vegetable Lo Mein", price: 10.95 }
+  ]
+};
 
-  useEffect(() => {
-    // Updated port to 3003
-    axios.get('http://localhost:3003/api/menu')
-      .then(response => {
-        console.log('Menu data:', response.data);
-        setMenuItems(response.data);
-      })
-      .catch(err => {
-        console.error('Error fetching menu:', err);
-        setError(err.message);
-      });
-  }, []);
+function App() {
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddToCart = (item) => {
+    setCartItems([...cartItems, item]);
+  };
+
+  const handleRemoveFromCart = (index) => {
+    const newItems = cartItems.filter((_, i) => i !== index);
+    setCartItems(newItems);
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
   return (
     <GroupOrderProvider>
-      <CartProvider>
-        <div className="App">
-          <header className="App-header">
-            <h1>BigOrders</h1>
-            <h2>Rain Albany Restaurant</h2>
-          </header>
+      <div className="App">
+        <Header />
+        <div className="main-content">
+          <div className="buttons">
+            <button className="create-order-btn" onClick={() => setShowCreateModal(true)}>
+              Create Group Order
+            </button>
+            <button className="join-order-btn" onClick={() => setShowJoinModal(true)}>
+              Join Group Order
+            </button>
+          </div>
           
-          <main>
-            <GroupOrder />
-            <div className="content-wrapper">
-              {error && (
-                <div className="error-message">
-                  Error loading menu: {error}
-                </div>
-              )}
-              
-              <div className="menu-and-cart">
-                <div className="menu-section">
-                  {menuItems && (
-                    <div className="menu-container">
-                      {menuItems.categories.map(category => (
-                        <div key={category.name} className="menu-category">
-                          <h3>{category.name}</h3>
-                          <div className="menu-items">
-                            {category.items.map(item => (
-                              <MenuItem key={item.id} item={item} />
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <Cart />
-              </div>
-            </div>
-          </main>
+          <div className="content-wrapper">
+            <Menu menuData={menuData} onAddToCart={handleAddToCart} />
+            <Cart 
+              items={cartItems} 
+              onRemove={handleRemoveFromCart}
+              onShowReceipt={() => setShowReceipt(true)}
+              onClearCart={clearCart}
+            />
+          </div>
         </div>
-      </CartProvider>
+
+        {showCreateModal && (
+          <CreateOrderModal onClose={() => setShowCreateModal(false)} />
+        )}
+        
+        {showJoinModal && (
+          <JoinOrderModal onClose={() => setShowJoinModal(false)} />
+        )}
+
+        {showReceipt && (
+          <Receipt onClose={() => setShowReceipt(false)} />
+        )}
+      </div>
     </GroupOrderProvider>
   );
 }
