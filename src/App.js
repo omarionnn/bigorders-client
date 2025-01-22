@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GroupOrderProvider } from './contexts/GroupOrderContext';
+import { GroupOrderProvider, useGroupOrder } from './contexts/GroupOrderContext';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Cart from './components/Cart/Cart';
@@ -52,11 +52,12 @@ const menuData = {
   ]
 };
 
-function App() {
+function AppContent() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const { activeGroupOrder, isHost } = useGroupOrder();
 
   const handleAddToCart = (item) => {
     setCartItems([...cartItems, item]);
@@ -72,42 +73,63 @@ function App() {
   };
 
   return (
-    <GroupOrderProvider>
-      <div className="App">
-        <Header />
-        <div className="main-content">
-          <div className="buttons">
-            <button className="create-order-btn" onClick={() => setShowCreateModal(true)}>
-              Create Group Order
-            </button>
-            <button className="join-order-btn" onClick={() => setShowJoinModal(true)}>
-              Join Group Order
-            </button>
-          </div>
-          
-          <div className="content-wrapper">
-            <Menu menuData={menuData} onAddToCart={handleAddToCart} />
-            <Cart 
-              items={cartItems} 
-              onRemove={handleRemoveFromCart}
-              onShowReceipt={() => setShowReceipt(true)}
-              onClearCart={clearCart}
-            />
-          </div>
+    <div className="App">
+      <Header />
+      {activeGroupOrder && (
+        <div className="pin-display">
+          PIN: {activeGroupOrder.pin}
         </div>
-
-        {showCreateModal && (
-          <CreateOrderModal onClose={() => setShowCreateModal(false)} />
-        )}
-        
-        {showJoinModal && (
-          <JoinOrderModal onClose={() => setShowJoinModal(false)} />
-        )}
-
-        {showReceipt && (
-          <Receipt onClose={() => setShowReceipt(false)} />
-        )}
+      )}
+      <div className="main-content">
+        <div className="menu-section">
+          <div className="buttons">
+            {!activeGroupOrder && (
+              <>
+                <button className="create-order-btn" onClick={() => setShowCreateModal(true)}>
+                  Create Group Order
+                </button>
+                <button className="join-order-btn" onClick={() => setShowJoinModal(true)}>
+                  Join Group Order
+                </button>
+              </>
+            )}
+            {isHost && activeGroupOrder && (
+              <button className="generate-receipt-btn" onClick={() => setShowReceipt(true)}>
+                Generate Global Receipt
+              </button>
+            )}
+          </div>
+          <Menu menuData={menuData} onAddToCart={handleAddToCart} />
+        </div>
+        <div className="cart-section">
+          <Cart 
+            items={cartItems} 
+            onRemove={handleRemoveFromCart}
+            onShowReceipt={() => setShowReceipt(true)}
+            onClearCart={clearCart}
+          />
+        </div>
       </div>
+
+      {showCreateModal && (
+        <CreateOrderModal onClose={() => setShowCreateModal(false)} />
+      )}
+      
+      {showJoinModal && (
+        <JoinOrderModal onClose={() => setShowJoinModal(false)} />
+      )}
+
+      {showReceipt && (
+        <Receipt onClose={() => setShowReceipt(false)} />
+      )}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <GroupOrderProvider>
+      <AppContent />
     </GroupOrderProvider>
   );
 }

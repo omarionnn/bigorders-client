@@ -1,8 +1,20 @@
 import React from 'react';
+import { useGroupOrder } from '../../contexts/GroupOrderContext';
 import './Cart.css';
 
-const Cart = ({ items, onRemove, onShowReceipt, onClearCart }) => {
+const Cart = ({ items, onRemove, onClearCart }) => {
+  const { activeGroupOrder, addToGroupOrder } = useGroupOrder();
   const total = items.reduce((sum, item) => sum + item.price, 0);
+
+  const handleSubmitOrder = async () => {
+    try {
+      await addToGroupOrder(items);
+      onClearCart(); // Clear cart after successful submission
+      alert('Order added to group order!');
+    } catch (error) {
+      alert('Error adding order: ' + error.message);
+    }
+  };
 
   return (
     <div className="cart">
@@ -24,8 +36,14 @@ const Cart = ({ items, onRemove, onShowReceipt, onClearCart }) => {
             <strong>Total: ${total.toFixed(2)}</strong>
           </div>
           <div className="cart-actions">
-            <button onClick={onShowReceipt}>View Receipt</button>
-            <button onClick={onClearCart}>Clear Cart</button>
+            {activeGroupOrder && (
+              <button onClick={handleSubmitOrder} className="submit-order-btn">
+                Submit Order
+              </button>
+            )}
+            <button onClick={onClearCart} className="clear-cart-btn">
+              Clear Cart
+            </button>
           </div>
         </>
       )}

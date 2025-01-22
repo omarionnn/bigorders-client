@@ -1,6 +1,115 @@
 .App {
-  text-align: center;
-  padding: 20px;
+  min-height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.header {
+  background-color: #0056b3;
+  color: white;
+  padding: 1rem;
+  position: relative;
+}
+
+.pin-display {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #007bff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-section {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cart-section {
+  width: 350px;
+  position: sticky;
+  top: 1rem;
+  align-self: flex-start;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.create-order-btn, .join-order-btn, .generate-receipt-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.create-order-btn:hover, .join-order-btn:hover, .generate-receipt-btn:hover {
+  background-color: #0056b3;
+}
+
+.receipt-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.receipt-modal h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.receipt-modal .participants {
+  margin: 1rem 0;
+}
+
+.receipt-modal .orders {
+  border-top: 2px solid #eee;
+  padding-top: 1rem;
+}
+
+.receipt-modal .total {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .cart-section {
+    width: 100%;
+    position: static;
+  }
 }
 
 .App-logo {
@@ -44,10 +153,6 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 20px;
-}
-
-.menu-section {
-  text-align: left;
 }
 
 .menu-category {
