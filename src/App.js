@@ -8,19 +8,47 @@ import JoinOrderModal from './components/GroupOrder/JoinOrderModal';
 import Receipt from './components/GroupOrder/Receipt';
 import './App.css';
 
-// Menu data
+// Updated Menu data
 const menuData = {
   "Fried Rice & Noodles": [
-    { id: 1, name: "House Special Fried Rice", price: 12.95 },
-    { id: 2, name: "Shrimp Fried Rice", price: 12.95 },
-    { id: 3, name: "Chicken Fried Rice", price: 11.95 },
-    { id: 4, name: "Beef Fried Rice", price: 11.95 },
-    { id: 5, name: "Vegetable Fried Rice", price: 10.95 },
-    { id: 6, name: "House Special Lo Mein", price: 12.95 },
-    { id: 7, name: "Shrimp Lo Mein", price: 12.95 },
-    { id: 8, name: "Chicken Lo Mein", price: 11.95 },
-    { id: 9, name: "Beef Lo Mein", price: 11.95 },
-    { id: 10, name: "Vegetable Lo Mein", price: 10.95 }
+    { id: 1, name: "Vegetable Fried Rice", price: 12.00 },
+    { id: 2, name: "Roast Pork Fried Rice", price: 12.00 },
+    { id: 3, name: "Chicken Fried Rice", price: 12.00 },
+    { id: 4, name: "Beef Fried Rice", price: 13.00 },
+    { id: 5, name: "Shrimp Fried Rice", price: 13.00 },
+    { id: 6, name: "Vegetable Lo Mein", price: 12.00 },
+    { id: 7, name: "Roast Pork Lo Mein", price: 12.00 },
+    { id: 8, name: "Chicken Lo Mein", price: 12.00 },
+    { id: 9, name: "Beef Lo Mein", price: 13.00 },
+    { id: 10, name: "Shrimp Lo Mein", price: 13.00 },
+    { id: 11, name: "Beef Chow Fun (Dry or with Gravy)", price: 12.00 },
+    { id: 12, name: "Singapore Rice Noodle (Shrimp, Pork Curry Flavor)", price: 13.00 },
+    { id: 13, name: "Wonton Noodle Soup", price: 12.00 },
+    { id: 14, name: "Roast Pork Noodle Soup", price: 12.00 },
+    { id: 15, name: "Roast Duck Noodle Soup", price: 16.00 }
+  ],
+  "Main Dishes": [
+    { id: 16, name: "Tofu with Mixed Vegetables", price: 12.00 },
+    { id: 17, name: "Broccoli with Garlic Sauce", price: 12.00 },
+    { id: 18, name: "Eggplant with Garlic Sauce", price: 12.00 },
+    { id: 19, name: "String Beans with Garlic Sauce", price: 12.00 },
+    { id: 20, name: "Chicken with Broccoli", price: 14.00 },
+    { id: 21, name: "Beef with Broccoli", price: 16.00 },
+    { id: 22, name: "Shrimp with Broccoli", price: 16.00 },
+    { id: 23, name: "Chicken with Mixed Vegetables", price: 14.00 },
+    { id: 24, name: "Beef with Mixed Vegetables", price: 16.00 },
+    { id: 25, name: "Shrimp with Mixed Vegetables", price: 16.00 },
+    { id: 26, name: "Chicken with Garlic Sauce", price: 14.00 },
+    { id: 27, name: "Beef with Garlic Sauce", price: 16.00 },
+    { id: 28, name: "Shrimp with Garlic Sauce", price: 16.00 },
+    { id: 29, name: "Kung Po Chicken with Peanut", price: 14.00 },
+    { id: 30, name: "Sweet & Sour Chicken", price: 14.00 },
+    { id: 31, name: "Curry Chicken", price: 14.00 },
+    { id: 32, name: "General Tso Chicken", price: 16.00 },
+    { id: 33, name: "Sesame Chicken", price: 16.00 },
+    { id: 34, name: "Mango Crispy Chicken", price: 16.00 },
+    { id: 35, name: "Wok Seared Salmon with Garlic Sauce", price: 16.00 },
+    { id: 36, name: "Seared Mahi Szechuan Style", price: 16.00 }
   ]
 };
 
