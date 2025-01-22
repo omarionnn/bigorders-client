@@ -1,0 +1,159 @@
+.receipt-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.receipt-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.receipt-header {
+  text-align: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.receipt-header h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.user-order {
+  margin-bottom: 25px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.user-order h3 {
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  color: #444;
+}
+
+.item-name {
+  flex: 1;
+}
+
+.item-price {
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.user-total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+}
+
+.receipt-footer {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px dashed #ccc;
+}
+
+.order-summary {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.grand-total {
+  text-align: right;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.no-orders {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+.host-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.receipt-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.receipt-btn:hover {
+  background-color: #218838;
+}
+
+.totals {
+  margin-top: 20px;
+  border-top: 2px solid #eee;
+  padding-top: 15px;
+}
+
+.subtotal,
+.tax {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.grand-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px dashed #ccc;
+  font-weight: bold;
+  color: #333;
+}
+
+.grand-total h3 {
+  margin: 0;
+  font-size: 1.2em;
+} 
