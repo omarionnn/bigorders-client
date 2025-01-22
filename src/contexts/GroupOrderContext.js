@@ -37,12 +37,12 @@ export const GroupOrderProvider = ({ children }) => {
       });
       console.log('Create response:', response.data);
       setActiveGroupOrder(response.data.groupOrder);
-      setParticipants(response.data.groupOrder.participants);
+      setParticipants([{ name: hostName }]);
       setIsHost(true);
-      return response.data.pin;
+      return response.data.groupOrder.pin;
     } catch (error) {
       console.error('Error creating group order:', error);
-      throw error;
+      throw new Error(error.response?.data?.error || 'Failed to create group order');
     }
   };
 
@@ -55,12 +55,12 @@ export const GroupOrderProvider = ({ children }) => {
       });
       console.log('Join response:', response.data);
       setActiveGroupOrder(response.data.groupOrder);
-      setParticipants(response.data.groupOrder.participants);
+      setParticipants([...response.data.groupOrder.participants]);
       setIsHost(false);
       return true;
     } catch (error) {
       console.error('Error joining group order:', error);
-      throw error;
+      throw new Error(error.response?.data?.error || 'Failed to join group order');
     }
   };
 
@@ -71,7 +71,7 @@ export const GroupOrderProvider = ({ children }) => {
       const response = await axios.post(
         `${API_URL}/api/group-orders/${activeGroupOrder.pin}/orders`,
         {
-          userId: activeGroupOrder.participants.find(p => p.name === participants[0].name).id,
+          userId: participants[0].name,
           items
         }
       );
@@ -80,7 +80,7 @@ export const GroupOrderProvider = ({ children }) => {
       return true;
     } catch (error) {
       console.error('Error adding to order:', error);
-      throw error;
+      throw new Error(error.response?.data?.error || 'Failed to add items to order');
     }
   };
 
